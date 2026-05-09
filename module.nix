@@ -8,12 +8,13 @@ with lib;
 with types; let
   languages = with strings;
   with builtins;
-    map
-    (removeSuffix ".lua")
-    (attrNames
-      (filterAttrs
+    map (removeSuffix ".lua") (
+      attrNames (
+        filterAttrs
         (name: type: type == "regular" && strings.hasSuffix ".lua" name)
-        (readDir ./langs)));
+        (readDir ./template/langs)
+      )
+    );
 in {
   options.programs.neovim.lingshin-config = {
     enable = mkEnableOption "lingshin's nvim configuration";
@@ -51,9 +52,5 @@ in {
         self.packages.${system}.default.override {
           inherit (nvim-config) languages extraLanguages;
         };
-
-      programs.neovim = {
-        plugins = [pkgs.vimPlugins.lazy-nvim];
-      };
     };
 }

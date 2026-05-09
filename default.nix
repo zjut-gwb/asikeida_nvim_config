@@ -6,7 +6,6 @@
 }: let
   inherit (stdenvNoCC) mkDerivation;
   inherit (lib) cleanSource concatStringsSep;
-  inherit (builtins) map;
 in
   mkDerivation {
     pname = "lingshin-nvim-config";
@@ -14,23 +13,28 @@ in
     src = cleanSource ./.;
 
     installPhase = let
-      snacks = "$out/lua/plugins/ui/snacks.lua";
-      langs = "$out/lua/config/langs/";
+      langs = "$out/langs";
     in ''
       mkdir -p $out
       cp -r $src/* $out
+      rm -rf ${langs}
 
-      chmod u+w $out/lua/config/
       if test -n "${toString languages}"
       then
         mkdir -p ${langs}
-        ln -s ../../../langs/{${concatStringsSep "," languages}}.lua ${langs}
+        for lang in ${concatStringsSep " " languages}
+        do
+          ln -s ../template/langs/$lang.lua ${langs}/$lang.lua
+        done
       fi
 
       if test -n "${toString extraLanguages}"
       then
         mkdir -p ${langs}
-        cp "${toString extraLanguages}" ${langs}
+        for lang in ${toString extraLanguages}
+        do
+          cp "$lang" ${langs}/
+        done
       fi
     '';
   }
