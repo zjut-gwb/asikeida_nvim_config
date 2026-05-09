@@ -80,10 +80,6 @@
       "rev": "42387c7fe68fc0b6e95eaf37f1bb76e7bffaa0d9",
       "src": "https://github.com/nvim-mini/mini.pairs"
     },
-    "mini.test": {
-      "rev": "4b187876dc134c820677f9e67f0b28910be739ea",
-      "src": "https://github.com/nvim-mini/mini.test"
-    },
     "noice.nvim": {
       "rev": "7bfd942445fb63089b59f97ca487d605e715f155",
       "src": "https://github.com/folke/noice.nvim"
