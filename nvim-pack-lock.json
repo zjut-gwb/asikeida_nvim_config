@@ -12,10 +12,6 @@
       "rev": "f29d8bac6549bc1e7d699c83f680823d7def98bd",
       "src": "https://github.com/saghen/blink.lib"
     },
-    "clangd_extensions.nvim": {
-      "rev": "78c2ecd659d54972be17aa6ba2deac3c53223b80",
-      "src": "https://github.com/p00f/clangd_extensions.nvim"
-    },
     "coerce.nvim": {
       "rev": "49bf22e7f3f69403d9efb68eda1fa2f8492d2fb2",
       "src": "https://github.com/gregorias/coerce.nvim"
@@ -163,10 +159,6 @@
     "trouble.nvim": {
       "rev": "bd67efe408d4816e25e8491cc5ad4088e708a69a",
       "src": "https://github.com/folke/trouble.nvim"
-    },
-    "ts-autotag.nvim": {
-      "rev": "35f79f6253dff5cc43cf943d74c4b2734370a81d",
-      "src": "https://github.com/tronikelis/ts-autotag.nvim"
     },
     "which-key.nvim": {
       "rev": "3aab2147e74890957785941f0c1ad87d0a44c15a",
