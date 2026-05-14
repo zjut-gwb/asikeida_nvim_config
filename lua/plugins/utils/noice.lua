@@ -1,5 +1,5 @@
 return {
-  { "MunifTanjim/nui.nvim", load_before = "noice.nvim" },
+  { "MunifTanjim/nui.nvim", load_before = { "noice.nvim", "leetcode.nvim" } },
   {
     "folke/noice.nvim",
     event = "DeferredUIEnter",

@@ -1,7 +1,7 @@
 return {
   {
     "nvim-lua/plenary.nvim",
-    load_before = "opencode.nvim",
+    load_before = { "opencode.nvim", "leetcode.nvim" },
   },
   {
     "sudo-tee/opencode.nvim",
