@@ -1,5 +1,23 @@
 local after = require("utils.pack").after_wrap
 
+local function collect_pkgs(acc, pkgs)
+  if type(pkgs) == "string" then
+    acc[pkgs] = true
+  elseif type(pkgs) == "table" then
+    for _, pkg in ipairs(pkgs) do
+      acc[pkg] = true
+    end
+  end
+end
+
+local install_pkgs = after("mason.nvim", function(langs)
+  local mason = require "utils.plugin.mason"
+  local pkgs = vim.tbl_extend("force", langs.pkgs or {}, langs.packages or {})
+  for pkg in pairs(pkgs) do
+    mason.install(pkg)
+  end
+end)
+
 ---@type utils.language.Properties
 return {
   lsp = {
@@ -65,6 +83,15 @@ return {
       end
     end,
     load = after("conform.nvim", function(langs) require("conform").formatters_by_ft = langs.formatter end),
+  },
+
+  pkgs = {
+    collect = collect_pkgs,
+    load = install_pkgs,
+  },
+
+  packages = {
+    collect = collect_pkgs,
   },
 
   option = {

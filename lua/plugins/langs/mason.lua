@@ -1,6 +1,7 @@
 return {
   {
     "mason-org/mason.nvim",
+    event = "DeferredUIEnter",
     load_before = "nvim-lspconfig",
     keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
     opts = {
