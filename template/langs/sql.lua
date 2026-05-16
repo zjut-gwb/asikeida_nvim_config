@@ -3,7 +3,7 @@ return {
   treesitter = { "sql" },
   lsp = "postgres_lsp",
   formatter = "sqlfluff",
-  packages = { "postgres-language-server", "sqlfluff" },
+  packages = { "postgres-language-server", "sqlfluff", "tree-sitter-cli" },
   plugin = {
     {
       "tpope/vim-dadbod",

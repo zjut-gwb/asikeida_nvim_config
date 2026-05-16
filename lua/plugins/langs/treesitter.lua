@@ -39,6 +39,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     cmd = { "TSInstall", "TSInstallFromGrammar", "TSLog", "TSUninstall", "TSUpdate" },
+    event = "DeferredUIEnter",
   },
 
   {
