@@ -2,6 +2,13 @@ return {
   { "nvim-lua/plenary.nvim", load_before = { "leetcode.nvim", "opencode.nvim" } },
   { "MunifTanjim/nui.nvim", load_before = { "leetcode.nvim", "noice.nvim" } },
   {
+    "3rd/image.nvim",
+    load_before = "leetcode.nvim",
+    opts = {
+      processor = "magick_cli",
+    },
+  },
+  {
     "kawre/leetcode.nvim",
     cmd = "Leet",
     keys = {
@@ -20,6 +27,7 @@ return {
       picker = {
         provider = "snacks-picker",
       },
+      image_support = true,
     },
     after = function(spec)
       require("leetcode").setup(spec.opts)
