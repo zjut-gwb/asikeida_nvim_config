@@ -13,6 +13,13 @@ vim.g.neovide_cursor_unfocuesd_outline_width = 0
 vim.g.neovide_cursor_animate_command_line = false
 vim.g.neovide_cursor_smooth_blink = true
 
+vim.g.neovide_scale_factor = vim.g.neovide_scale_factor or 1.0
+
+local function change_scale(delta) vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + delta end
+
+vim.keymap.set({ "n", "i", "t" }, "<C-+>", function() change_scale(0.1) end, { desc = "Neovide Zoom In" })
+vim.keymap.set({ "n", "i", "t" }, "<C-_>", function() change_scale(-0.1) end, { desc = "Neovide Zoom Out" })
+
 vim.g.neovide_input_ime = false
 vim.api.nvim_create_autocmd({
   "InsertEnter",
