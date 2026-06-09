@@ -49,6 +49,7 @@ M = {
 
   { "<leader>n", plug "Notifications", desc = "Notifications" },
   { "<leader>qq", cmd "quitall", desc = "Quit All" },
+  { "<C-S-T>", cmd "term", mode = { "n", "i" }, desc = "Open Terminal" },
   { [[<C-\>]], plug "OpenTerminal", desc = "ToggleTerm" },
 
   { "M", "mX", desc = "Mark" },
