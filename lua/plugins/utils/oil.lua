@@ -1,3 +1,16 @@
+local function open_terminal()
+  Snacks.terminal.toggle(nil, {
+    cwd = require("oil").get_current_dir(0),
+    win = {
+      style = "minimal",
+      position = "right",
+      wo = {
+        winhighlight = "NormalFloat:Normal,FloatBorder:Normal",
+      },
+    },
+  })
+end
+
 return {
   {
     "nvim-mini/mini.icons",
@@ -66,20 +79,13 @@ return {
             require("oil").set_columns(vim.b.detail and { "icon", "permissions", "size", "mtime" } or { "icon" })
           end,
         },
-        ["<c-\\>"] = {
+        ["<C-S-\\>"] = {
           desc = "Terminal",
-          callback = function()
-            Snacks.terminal.toggle(nil, {
-              cwd = require("oil").get_current_dir(0),
-              win = {
-                style = "minimal",
-                position = "right",
-                wo = {
-                  winhighlight = "NormalFloat:Normal,FloatBorder:Normal",
-                },
-              },
-            })
-          end,
+          callback = open_terminal,
+        },
+        ["<C-|>"] = {
+          desc = "Terminal",
+          callback = open_terminal,
         },
         ["<leader>fz"] = {
           desc = "Zoxide",
