@@ -8,9 +8,12 @@ return {
 
   open_terminal = function()
     if vim.v.count ~= 0 then vim.t.snacks_recent_terminal = vim.v.count end
+    local id = vim.t.snacks_recent_terminal or 1
     Snacks.terminal.toggle(nil, {
-      count = vim.t.snacks_recent_terminal,
+      count = id,
       win = {
+        title = ("Terminal %d"):format(id),
+        title_pos = "right",
         wo = {
           winhighlight = "NormalFloat:Normal,FloatBorder:Normal",
         },
