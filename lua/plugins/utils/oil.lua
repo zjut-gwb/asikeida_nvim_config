@@ -11,6 +11,17 @@ local function open_terminal()
   })
 end
 
+local function copy_path()
+  local oil = require "oil"
+  local dir = oil.get_current_dir(0)
+  local entry = oil.get_cursor_entry()
+  if not dir or not entry then return end
+
+  local path = dir .. entry.name
+  vim.fn.setreg("+", path)
+  vim.notify(("Copied '%s'"):format(path))
+end
+
 return {
   {
     "nvim-mini/mini.icons",
@@ -48,7 +59,10 @@ return {
         ["<BS>"] = { "actions.parent", mode = "n" },
         ["g?"] = { "actions.show_help", mode = "n" },
         ["gx"] = "actions.open_external",
-        ["<C-y>"] = "actions.copy_to_system_clipboard",
+        ["<C-y>"] = {
+          desc = "Copy Path",
+          callback = copy_path,
+        },
         ["<C-p>"] = "actions.paste_from_system_clipboard",
         ["<leader>R"] = "actions.refresh",
         ["<leader>oh"] = { "actions.open_cwd", mode = "n" },
