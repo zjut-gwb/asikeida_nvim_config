@@ -1,3 +1,5 @@
+local terminal_cwds = {}
+
 return {
   ---@param count integer
   ---@param cycle boolean?
@@ -9,10 +11,13 @@ return {
   open_terminal = function()
     if vim.v.count ~= 0 then vim.t.snacks_recent_terminal = vim.v.count end
     local id = vim.t.snacks_recent_terminal or 1
+    terminal_cwds[id] = terminal_cwds[id] or vim.fn.getcwd(0)
+    local cwd = terminal_cwds[id]
     Snacks.terminal.toggle(nil, {
       count = id,
+      cwd = cwd,
       win = {
-        title = ("Terminal %d"):format(id),
+        title = ("Terminal %d: %s"):format(id, vim.fn.fnamemodify(cwd, ":t")),
         title_pos = "right",
         wo = {
           winhighlight = "NormalFloat:Normal,FloatBorder:Normal",
