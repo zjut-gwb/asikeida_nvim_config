@@ -50,12 +50,16 @@ local function project_files(ext)
     :totable()
 end
 
-local function select_match(matches)
+local function open_match(item, command)
+  vim.cmd[command or "edit"](item.path)
+  vim.api.nvim_win_set_cursor(0, { item.lnum, item.col or 0 })
+end
+
+local function select_match(matches, command)
   if #matches == 0 then
     vim.notify("No MyBatis target found", vim.log.levels.WARN)
   elseif #matches == 1 then
-    vim.cmd.edit(matches[1].path)
-    vim.api.nvim_win_set_cursor(0, { matches[1].lnum, matches[1].col or 0 })
+    open_match(matches[1], command)
   else
     vim.ui.select(matches, {
       prompt = "MyBatis target",
@@ -64,8 +68,7 @@ local function select_match(matches)
       end,
     }, function(item)
       if not item then return end
-      vim.cmd.edit(item.path)
-      vim.api.nvim_win_set_cursor(0, { item.lnum, item.col or 0 })
+      open_match(item, command)
     end)
   end
 end
@@ -101,7 +104,7 @@ local function java_files(simple_name)
     :totable()
 end
 
-local function jump_java_to_xml()
+local function jump_java_to_xml(command)
   local path = vim.api.nvim_buf_get_name(0)
   local package, class = java_info(path)
   local method = current_java_method()
@@ -131,7 +134,7 @@ local function jump_java_to_xml()
       end
     end
   end
-  select_match(matches)
+  select_match(matches, command)
 end
 
 local function xml_context()
@@ -151,7 +154,7 @@ local function xml_context()
   return namespace
 end
 
-local function jump_xml_to_java()
+local function jump_xml_to_java(command)
   local namespace, method = xml_context()
   if not namespace or not method then
     vim.notify("Could not detect MyBatis namespace or statement id", vim.log.levels.WARN)
@@ -168,14 +171,15 @@ local function jump_xml_to_java()
       end
     end
   end
-  select_match(matches)
+  select_match(matches, command)
 end
 
-function M.jump()
+function M.jump(opts)
+  opts = opts or {}
   if vim.bo.filetype == "java" then
-    jump_java_to_xml()
+    jump_java_to_xml(opts.command)
   elseif vim.bo.filetype == "xml" then
-    jump_xml_to_java()
+    jump_xml_to_java(opts.command)
   else
     vim.notify("MyBatis jump only supports Java and XML buffers", vim.log.levels.WARN)
   end

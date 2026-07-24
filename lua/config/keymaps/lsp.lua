@@ -23,6 +23,13 @@ del("n", "grr")
 del("n", "gri")
 del("n", "grt")
 
+local function vsplit_pick(source)
+  return function()
+    vim.cmd.vsplit()
+    vim.cmd.Pick(source)
+  end
+end
+
 return {
   { "<leader>ca", vim.lsp.buf.code_action, desc = "Line Diagnostics" },
   { "[d", diagnostic_goto(-1), desc = "Diagnostic", icon = "" },
@@ -40,6 +47,8 @@ return {
   { "gr", pick "lsp_references", desc = "References" },
   { "gI", pick "lsp_implementations", desc = "Goto Implementation" },
   { "gt", pick "lsp_type_definitions", desc = "Goto T[y]pe Definition" },
+  { "<leader>gD", vsplit_pick "lsp_definitions", desc = "Goto Definition Vsplit" },
+  { "<leader>gI", vsplit_pick "lsp_implementations", desc = "Goto Implementation Vsplit" },
 
   { "<leader>ss", pick "lsp_symbols", desc = "LSP Symbols" },
   { "<leader>sS", pick "lsp_workspace_symbols", desc = "LSP Workspace Symbols" },
