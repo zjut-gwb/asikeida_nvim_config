@@ -2,6 +2,11 @@ local autocmd = vim.api.nvim_create_autocmd
 local augroup = function(name) return vim.api.nvim_create_augroup("lingshin_" .. name, { clear = true }) end
 local name = require "utils.plugin.heirline.tabline.name"
 
+local function deactivate_ime()
+  if vim.fn.executable "fcitx5-remote" == 0 then return end
+  vim.fn.jobstart({ "fcitx5-remote", "--check", "-s", "keyboard-us" }, { detach = true })
+end
+
 -- Auto Chdir
 autocmd({ "BufEnter", "BufWinEnter" }, {
   desc = "Auto change dir to root",
@@ -55,6 +60,12 @@ autocmd("VimResized", {
 autocmd("SessionLoadPost", {
   desc = "Load tab names",
   callback = name.load,
+})
+
+autocmd({ "InsertLeavePre", "InsertLeave", "CmdlineLeave", "TermLeave" }, {
+  group = augroup "deactivate_ime",
+  desc = "Deactivate Fcitx5 input method",
+  callback = deactivate_ime,
 })
 
 autocmd("User", {
