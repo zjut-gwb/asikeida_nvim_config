@@ -4,4 +4,5 @@
 /lua/config/custom.lua
 /lua/plugins/extra
 !/langs/lua.lua
+!/langs/java.lua
 !/langs/python.lua
