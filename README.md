@@ -2,6 +2,7 @@
 
 <img width="2516" height="1348" alt="图片" src="https://github.com/user-attachments/assets/a92379ab-223b-4a2e-9cec-d4ece66af217" />
 
+Asikeida的nvim配置
 
 ## Introduction [zh_CN](./README-CN.md)
 
