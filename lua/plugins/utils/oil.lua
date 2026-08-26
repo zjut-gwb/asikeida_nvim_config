@@ -22,6 +22,16 @@ local function copy_path()
   vim.notify(("Copied '%s'"):format(path))
 end
 
+local function copy_parent_path()
+  local dir = require("oil").get_current_dir(0)
+  if not dir then return end
+
+  local path = dir == "/" and dir or dir:gsub("/+$", "")
+  local command = "cd -- " .. vim.fn.shellescape(path)
+  vim.fn.setreg("+", command)
+  vim.notify(("Copied cd command '%s'"):format(command))
+end
+
 return {
   {
     "nvim-mini/mini.icons",
@@ -62,6 +72,10 @@ return {
         ["<C-y>"] = {
           desc = "Copy Path",
           callback = copy_path,
+        },
+        ["<C-S-y>"] = {
+          desc = "Copy Parent Path",
+          callback = copy_parent_path,
         },
         ["<C-p>"] = "actions.paste_from_system_clipboard",
         ["<leader>R"] = "actions.refresh",
