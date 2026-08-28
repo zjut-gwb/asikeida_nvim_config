@@ -1,5 +1,8 @@
 local fn = require "utils.keymaps"
 local cmd, plug = fn.cmd, fn.config
+local smart_write = require "utils.plugin.smart_write"
+
+smart_write.setup()
 
 local M
 M = {
@@ -41,7 +44,8 @@ M = {
   { "N", "'nN'[v:searchforward]", mode = { "x", "o" }, expr = true, desc = "Prev Search Result" },
 
   -- save file
-  { "<C-s>", "<cmd>w<cr>", mode = { "n", "x", "o" }, desc = "Save File" },
+  { "<C-s>", smart_write.write, mode = { "n", "i", "x", "o" }, desc = "Save File" },
+  { "<CR>", smart_write.commandline_enter, mode = "c", expr = true, desc = "Smart Write" },
 
   -- better indenting
   { "<", "<gv", mode = "v" },
